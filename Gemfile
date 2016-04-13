@@ -35,7 +35,7 @@ gem "carrierwave"
 gem 'cloudinary'
 
 
-# gem "chartkick"
+ gem "chartkick"
 gem 'pry-byebug', group: :development
 # Use Unicorn as the app server
 # gem 'unicorn'

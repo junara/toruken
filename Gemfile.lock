@@ -53,6 +53,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartkick (1.4.2)
     cloudinary (1.1.5)
       aws_cf_signer
       rest-client
@@ -174,6 +175,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   carrierwave
+  chartkick
   cloudinary
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
