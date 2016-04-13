@@ -1,0 +1,15 @@
+
+<!-- シェアボタンに変換される -->
+<a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true">Tweet</a>
+
+    <h1>Column Chart</h1>
+    <div id="chart-3" style="height: 300px;"></div>
+    <script>
+      new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",20],["5",13],["6",27]], {"download": true});
+    </script>
+    
+
+<!-- [head]内や、[body]の終了直前などに配置 -->
+<script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>

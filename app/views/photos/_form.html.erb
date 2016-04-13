@@ -1,0 +1,98 @@
+<p>
+  <strong>Image:</strong>
+  <% if @photo.image? %>
+    <div class="thumbnail">
+      <%= image_tag @photo.image.url %>
+    </div>
+  <% end %>
+  
+  
+    <div class="form-horizontal" role="form">
+        <%= form_for(@photo) do |f| %>
+            <!-- ↓エラーが起きたときの表示 -->
+        
+        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
+            <label class="col-sm-2 control-label">測定項目:</label>
+            <div class="col-sm-10">
+                <%= f.text_field :item_name, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
+            <label class="col-sm-2 control-label">測定値:</label>
+            <div class="col-sm-10">
+                <%= f.text_field :item_value, class: 'form-control', placeholder: '検査値' %>
+            </div>
+        </div>
+
+        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
+            <label class="col-sm-2 control-label">測定日:</label>
+            <div class="col-sm-10">
+              <%= f.date_select(
+              :item_date,
+              start_year: 2020,
+              end_year:   (Time.now.year - 5),
+              default:    Date.new(2016, 4, 1),
+              class: 'form-control') %>
+             </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <%= f.submit "送信" , class: 'btn btn-primary btn-large btn-block' %>
+            </div>
+        </div>
+        <span class="btn btn-default">
+            <%= link_to "削除" , @photo , method: :delete, data: {confirm: '削除してもよろしいですか？'} %>
+        </span>
+
+        <% end %>
+                </div>
+    </div>
+
+
+</p>
+
+
+
+<form id="myForm" name="myForm" method="post" action="">
+  <input type="text" name="text" id="item_value_form"/>
+</form>
+
+
+<button class="btn btn-primary" id="filebutton">primary</button>
+
+
+
+<script>
+
+
+//ファイル読み込み
+$(function(){
+  $('#filebutton').on('click', function(evt) {
+    var form = $('#myForm').get(0);
+    // FormData オブジェクトを作成
+    var fd = new FormData( form );
+
+    fd.append('photo[user_id]', "25");
+    fd.append('photo[item_value]',"30.5")
+
+    // Ajaxで送信
+    return $.ajax({
+        type: 'PUT',
+        url: '/photos/25',
+        data: fd,
+        processData: false,
+        contentType: false,
+    }).done(function( res ) {
+      // 送信せいこう！
+      console.log( 'うまくいったね', res );
+    }).fail(function( jqXHR, textStatus, errorThrown ) {
+      // しっぱい！
+      console.log( 'ERROR', jqXHR, textStatus, errorThrown );
+    });
+
+    return false;
+  });
+});
+</script>

@@ -1,0 +1,141 @@
+<!--<%= form_for(@photo) do |f| %>-->
+<!--  <%= render 'shared/error_messages', object: f.object %>-->
+  
+<!-- <div class="field">-->
+<!--    <% if @photo.image? %>-->
+<!--      <div class="thumbnail">-->
+<!--        <%= image_tag @photo.image.url %>-->
+<!--      </div>-->
+<!--    <% end %><br>-->
+<!--    <%= f.label :image %><br>-->
+<!--    <%= f.file_field :image %>-->
+<!--    <%= f.hidden_field :image_cache %>-->
+<!--  </div>-->
+<!--  <div class="field">-->
+    <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+<!--    <% if @photo.persisted? && @photo.image? %>-->
+<!--      <label>-->
+<!--        <%= f.check_box :remove_image %>-->
+<!--        画像を削除-->
+<!--      </label>-->
+<!--    <% end %>-->
+<!--  </div>-->
+
+<!--  <%= f.submit "Post", class: "btn btn-primary" %>-->
+<!--<% end %>-->
+
+<input type="file" id="myfile" />
+<canvas id="canvas"></canvas>
+<button style="display: none;" class="btn btn-primary" id="myfileuploadbutton">登録する</button>
+
+
+<script>
+ $('#myfile').change(callbackFunc);
+ 
+ //uploadボタン表示
+ $("canvas").change()
+        
+        
+
+ //ボタンを押して、blob形式をフォームとして/photosへ変換しcarrierwaveを動かす
+ $("#myfileuploadbutton").click(function(){
+    var resCanvas1 = document.getElementById('canvas');
+    var imgData = resCanvas1.toDataURL();
+    var imgBlob = dataURLtoBlob(imgData);
+    uploadphoto(imgBlob)
+    location.reload(true)
+  });
+
+
+  function uploadphoto (imgBlob){
+  	  var file= imgBlob;
+  	  var fd = new FormData();
+  	  fd.append('photo[image]',file);
+
+	  $.ajax({
+	        type: 'POST',
+	        url: '/photos',
+	        data: fd,
+	        processData: false,
+	        contentType: false,
+			}); 
+  }
+  
+    function dataURLtoBlob(dataURL) {
+        // Decode the dataURL
+        var binary = atob(dataURL.split(',')[1]);
+        // Create 8-bit unsigned array
+        var array = [];
+        for(var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+    		}
+        // Return our Blob object
+    	return new Blob([new Uint8Array(array)], {type: 'image/png'});
+    } 
+  //https://www.snip2code.com/Embed/144296/File-API-Canvas----------------?startLine=0
+  function callbackFunc(evt){
+    var file = evt.target.files[0];
+    var img = new Image();
+    var reader = new FileReader();
+    var orientation;
+    reader.onload = function(e) {
+        var data = e.target.result;
+        // JPEGの場合には、EXIFからOrientation（回転）情報を取得
+        if (data.split(',')[0].match('jpeg')) {
+            orientation = getOrientation(data);
+        }
+        // JPEG以外や、JPEGでもEXIFが無い場合などには、標準の値に設定
+        orientation = orientation || 1;
+    
+        //canvas描画処理
+        var mpImg = new MegaPixImage(file);
+        var resCanvas1 = document.getElementById('canvas');
+        mpImg.render(resCanvas1, { maxWidth: 300, maxHeight: 400, orientation: orientation });
+ 
+        $("canvas").show("fast",$("#myfileuploadbutton").show("fast"));
+
+
+    }
+    reader.readAsDataURL(file);
+  }
+  
+  function getOrientation(imgDataURL){
+    var byteString = atob(imgDataURL.split(',')[1]);
+    var orientaion = byteStringToOrientation(byteString);
+    return orientaion;
+ 
+    function byteStringToOrientation(img){
+        var head = 0;
+        var orientation;
+        while (1){
+            if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 218) {break;}
+            if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 216) {
+                head += 2;
+            }
+            else {
+                var length = img.charCodeAt(head + 2) * 256 + img.charCodeAt(head + 3);
+                var endPoint = head + length + 2;
+                if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 225) {
+                    var segment = img.slice(head, endPoint);
+                    var bigEndian = segment.charCodeAt(10) == 77;
+                    if (bigEndian) {
+                        var count = segment.charCodeAt(18) * 256 + segment.charCodeAt(19);
+                    } else {
+                        var count = segment.charCodeAt(18) + segment.charCodeAt(19) * 256;
+                    }
+                    for (i=0;i<count;i++){
+                        var field = segment.slice(20 + 12 * i, 32 + 12 * i);
+                        if ((bigEndian && field.charCodeAt(1) == 18) || (!bigEndian && field.charCodeAt(0) == 18)) {
+                            orientation = bigEndian ? field.charCodeAt(9) : field.charCodeAt(8);
+                        }
+                    }
+                    break;
+                }
+                head = endPoint;
+            }
+            if (head > img.length){break;}
+        }
+        return orientation;
+    }
+}
+</script>
