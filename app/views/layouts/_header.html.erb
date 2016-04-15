@@ -1,30 +1,28 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "とるだけダイエット", root_path, id: "logo" %>
+<header>
+  <div class="navbar navbar-fixed-top navbar-inverse container nav-justified">
     <nav>
-      <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
+          <ul class="nav nav-pills">
+          <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "写真登録", root_path %></li>
+          <li class="<%= 'active' if current_page?(user_path(session[:user_id])) %>"><%= link_to "タイムライン", user_path(session[:user_id]) %></li>
+          <li class="<%= 'active' if current_page?(graph_path(session[:user_id])) %>"><%= link_to "グラフ", graph_path(session[:user_id])  %></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              menu <b class="caret"></b>
-            </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">MENU<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><%= link_to "あなたのデータ登録", root_path %></li>
-              <li><%= link_to "あなたのデータ", user_path(session[:user_id]) %></li>
-              <li><%= link_to "あなたのグラフ", graph_path(session[:user_id])  %></li>
-
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
-              <li class="divider"></li>
+              <li><a href="#">Action</a></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
               </li>
             </ul>
           </li>
+          </ul>
         <% else %>
+          <li><h4>ペアダイエット</h4></li>
+          <ul class="nav ">
           <li><%= link_to "Log in", login_path %></li>
+          </ul>
         <% end %>
-      </ul>
+
     </nav>
   </div>
 </header>
