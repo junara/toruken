@@ -1,15 +1,38 @@
 <header>
-  <div class="navbar navbar-fixed-top navbar-inverse container nav-justified">
-    <nav>
+  <nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class = "container-fluid">
         <% if logged_in? %>
           <ul class="nav nav-pills">
-          <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "写真登録", root_path %></li>
-          <li class="<%= 'active' if current_page?(user_path(session[:user_id])) %>"><%= link_to "タイムライン", user_path(session[:user_id]) %></li>
-          <li class="<%= 'active' if current_page?(graph_path(session[:user_id])) %>"><%= link_to "グラフ", graph_path(session[:user_id])  %></li>
+          <li class="<%= 'active' if current_page?(user_path(session[:user_id])) %>">
+            <%= link_to user_path(session[:user_id]) do %>
+              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+              <br>
+              ホーム
+            <% end %>
+          </li>
+          <li class="<%= 'active' if current_page?(root_path) %>">
+            <%= link_to  root_path  do %>
+              <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+              <br>
+              写真登録
+            <% end %>
+          </li>
+          <li class="<%= 'active' if current_page?(graph_path(session[:user_id])) %>">
+            <%= link_to  graph_path(session[:user_id])  do %>
+              <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+              <br>
+              体重変化
+            <% end %>
+          </li>
+
+
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">MENU<span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="caret"></span>
+                            <br>
+              設定
+            </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
+              <li><a href="#">使い方</a></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
               </li>
@@ -17,12 +40,12 @@
           </li>
           </ul>
         <% else %>
-          <li><h4>ペアダイエット</h4></li>
-          <ul class="nav ">
-          <li><%= link_to "Log in", login_path %></li>
+          <%= link_to "ペアダイエット", root_path, id: "logo" %>
+          <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "アカウント保有者はこちら", login_path %></li>
           </ul>
         <% end %>
 
-    </nav>
-  </div>
+    </div>
+  </nav>
 </header>
