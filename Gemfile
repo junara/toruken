@@ -33,6 +33,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rmagick', require: 'RMagick'
 gem "carrierwave"
 gem 'cloudinary'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 
  gem "chartkick"

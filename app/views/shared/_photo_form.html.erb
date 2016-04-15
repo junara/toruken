@@ -1,5 +1,5 @@
 <!--<%= form_for(@photo) do |f| %>-->
-<!--  <%= render 'shared/error_messages', object: f.object %>-->
+  <%= render 'shared/error_messages', object: f.object %>
   
 <!-- <div class="field">-->
 <!--    <% if @photo.image? %>-->
@@ -30,27 +30,26 @@
 
 
 <script>
+ var fd = new FormData();
  $('#myfile').change(callbackFunc);
  
- //uploadボタン表示
- $("canvas").change()
-        
-        
+     
 
  //ボタンを押して、blob形式をフォームとして/photosへ変換しcarrierwaveを動かす
  $("#myfileuploadbutton").click(function(){
     var resCanvas1 = document.getElementById('canvas');
     var imgData = resCanvas1.toDataURL();
     var imgBlob = dataURLtoBlob(imgData);
+         
     uploadphoto(imgBlob)
     location.reload(true)
   });
 
-
+    //フォームを送信する。
   function uploadphoto (imgBlob){
-  	  var file= imgBlob;
-  	  var fd = new FormData();
-  	  fd.append('photo[image]',file);
+
+  	  fd.append('photo[image]',imgBlob);
+      fd.append('photo[item_name]','体重'); //初期値として 
 
 	  $.ajax({
 	        type: 'POST',
@@ -58,6 +57,7 @@
 	        data: fd,
 	        processData: false,
 	        contentType: false,
+	        async: false
 			}); 
   }
   
@@ -78,11 +78,18 @@
     var img = new Image();
     var reader = new FileReader();
     var orientation;
+
     reader.onload = function(e) {
         var data = e.target.result;
+        var filedate = file.lastModifiedDate;
+        // 写真のlastmodifieddateを取得してフォームに入力
+        fd.append('photo[item_date(1i)]',filedate.getFullYear());
+  	    fd.append('photo[item_date(2i)]',filedate.getMonth() + 1);
+  	    fd.append('photo[item_date(3i)]',filedate.getDate());
         // JPEGの場合には、EXIFからOrientation（回転）情報を取得
         if (data.split(',')[0].match('jpeg')) {
             orientation = getOrientation(data);
+            
         }
         // JPEG以外や、JPEGでもEXIFが無い場合などには、標準の値に設定
         orientation = orientation || 1;

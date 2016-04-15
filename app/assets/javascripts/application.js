@@ -14,3 +14,26 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+//= require moment
+//= require moment/ja.js
+//= require bootstrap-datetimepicker
+
+var data = {'data-date-format': 'YYYY-MM-DD hh:mm:ss' };
+$(function(){
+  $('.datepicker').datetimepicker({
+    format : "YYYY/MM/DD",
+
+      sideBySide: true
+  });
+  $('.datetimepicker').datetimepicker({
+    format : "YYYY/MM/DD HH:mm",
+    icons: {
+      time: "fa fa-clock-o",
+      date: "fa fa-calendar",
+      up: "fa fa-arrow-up",
+      down: "fa fa-arrow-down",
+      previous: "fa fa-arrow-left",
+      next: "fa fa-arrow-right"
+    }
+  });
+});
