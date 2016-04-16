@@ -1,16 +1,18 @@
-<div class="col-xs-6" >
+<div>
+<%= photo.item_date %>
+</div>
+<div class="col-xs-12" >
 <div class="item-box">
     <div class="image">
-      <div class="img-wrap">
+      <figure class="relative">
             <% if photo.image? %>
-                <%= image_tag (photo.image.thumb.url), class: "img-responsive" %>
+                <%= image_tag (photo.image.thumb.url), class: "img-responsive img-thumbnail" %>
+                
+                <figcaption class="absolute"><span class="label label-info"><%= photo.item_name %></span><p><%= photo.item_value %></p></figcaption>
             <% end %>
-        </div>
+      </figure>
     </div>
     <div class="action clearfix">
-        <span class="label label-info"><%= photo.item_name %></span>
-            <%= photo.item_value %>
-            <%= photo.item_date %>
         <span class="btn btn-default">
             <%= link_to "編集" , edit_photo_path(photo) %>
         </span>

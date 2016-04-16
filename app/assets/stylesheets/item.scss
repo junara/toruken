@@ -48,6 +48,21 @@
       display: block;
     }
   }
+  .absolute {
+    position: absolute;
+    bottom: 10px;
+    color: #fff;
+    background: rgba(0,0,0,.6);
+    width: 100%;
+    max-width: 600px;
+    padding: 1em 0;
+  }
+  .absolute p {
+    margin: 0;
+    padding: 0 0.8em;
+    font-size: 200%;
+    text-align: center;
+  }
 }
 .item-single-main {
   width: 400px;
