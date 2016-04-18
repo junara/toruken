@@ -12,25 +12,34 @@
           </li>
           <li class="<%= 'active' if current_page?(root_path) %>">
             <%= link_to  root_path  do %>
-              <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-              <br>
-              写真登録
+              <div id = "haedermenulogo">
+                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                <br>
+                写真登録
+              </div>
             <% end %>
           </li>
           <li class="<%= 'active' if current_page?(graph_path(session[:user_id])) %>">
             <%= link_to  graph_path(session[:user_id])  do %>
+              <div id = "haedermenulogo">
               <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
               <br>
-              体重変化
+              レポート
+              </div>
             <% end %>
           </li>
 
 
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="caret"></span>
-                            <br>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <div id = "haedermenulogo">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="caret"></span>
+            <br>
               設定
+              </div>
             </a>
+
+
             <ul class="dropdown-menu">
               <li><a href="#">使い方</a></li>
               <li>

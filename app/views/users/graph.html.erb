@@ -1,4 +1,16 @@
 <h1>Column Chart</h1>
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		測定値
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+		<li role="presentation"><a href="<%=  graph_path + '.体重'%>">体重</a></li>
+		<li role="presentation"><a href="<%=  graph_path + '.血圧'%>">血圧</a></li>
+	</ul>
+</div>
+
+
 <%= line_chart @chart_data %>
 <!-- シェアボタンに変換される -->
 <a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true">Tweet</a>
@@ -30,5 +42,14 @@ image.onload = function(){
 }
 image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData))); 
 }
+
+
+    // $("select#item_value_select").on('change',function(event){
+    //     var location_obj = window.location ;
+    //     var href = $('#products').data('url') ;
+    //     var graphurl = href + '.' + $(":selected").attr("value") ;
+    //     location_obj.href = graphurl ;
+    // });
+
 </script>
 
