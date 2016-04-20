@@ -42,6 +42,7 @@
 
             <ul class="dropdown-menu">
               <li><a href="#">使い方</a></li>
+              <li><%= link_to "設定" , edit_user_path(session[:user_id])  %></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
               </li>

@@ -1,7 +1,23 @@
-<div>
-<%= photo.item_date %>
-</div>
 <div class="col-xs-12" >
+<% if photo.user_id == params[:id].to_i %>
+    <div style="text-align:right">
+    <%= photo.item_date %>
+    </div>
+    <div style="text-align:right">
+    <%= User.find(photo.user_id).name %>さんの投稿
+    </div>
+    <div class="bubble bubble-right">
+<% else %>
+    <div style="text-align:left">
+    <%= photo.item_date %>
+    </div>
+    <div style="text-align:left">
+    <%= User.find(photo.user_id).name %>さんの投稿
+    </div>
+    <div class="bubble bubble-left">
+
+<% end %>
+
 <div class="item-box">
     <div class="image">
       <figure class="relative">
@@ -19,4 +35,5 @@
     </div>
 </div>
 
+</div>
 </div>

@@ -1,4 +1,4 @@
-<p>写真を見ながら数値を書いてね</p>
+<p>写真を見ながら数値を書いてね <%= @photo.user_id %></p>
 
   <% if @photo.image? %>
     <div class="thumbnail">
@@ -6,7 +6,7 @@
     </div>
   <% end %>
   
-  
+ 
     <div class="form-horizontal" role="form">
         <%= form_for(@photo) do |f| %>
             <!-- ↓エラーが起きたときの表示 -->
