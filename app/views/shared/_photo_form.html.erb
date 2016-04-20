@@ -39,17 +39,18 @@
  $("#myfileuploadbutton").click(function(){
     var resCanvas1 = document.getElementById('canvas');
     var imgData = resCanvas1.toDataURL();
-    var imgBlob = dataURLtoBlob(imgData);
          
-    uploadphoto(imgBlob)
+    uploadphoto(imgData)
     location.reload(true)
   });
 
     //フォームを送信する。
-  function uploadphoto (imgBlob){
-
+  function uploadphoto (imgData){
+    var imgBlob = dataURLtoBlob(imgData);
+    var base64Data = imgData.split(',')[1];
   	  fd.append('photo[image]',imgBlob);
       fd.append('photo[item_name]','体重'); //初期値として 
+      fd.append('photo[content]', base64Data);
 
 	  $.ajax({
 	        type: 'POST',
