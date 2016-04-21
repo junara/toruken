@@ -3,10 +3,19 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
-  def show 
-    @user = User.find(params[:id])
-    temp = @user.pairuserofuser.photos.ids + @user.photos.ids
-    @photos = Photo.where(id: temp).order(item_date: :desc) 
+  def show
+#    binding.pry
+  #   @user = User.find(params[:id])
+    
+  # if User.exists?(id: @user.pairuser_id)
+  #   @pairuser = User.find(@user.pairuser_id)
+  #   temp = @pairuser.photos.ids + @user.photos.ids
+  # else
+  #   temp = @user.photos.ids
+  # end
+  #   @photos = Photo.where(id: temp).order(item_date: :desc, item_time: :desc)  
+
+  @photos = userandpariuserphotos
 
 #       .paginate(:page => params[:page], :per_page => 5) #will_paginateを使用し、5投稿毎にページ訳
   end
@@ -43,19 +52,14 @@ class UsersController < ApplicationController
     else
       format = '体重'
     end
-#    format ='体重'
+
     @user = User.find(params[:id])
     @photos = @user.photos.order(item_date: :desc)
-    @photos_pair = @user.pairuserofuser.photos.order(item_date: :desc)
-#       .paginate(:page => params[:page], :per_page => 5) #will_paginateを使用し、5投稿毎にページ訳
-      # おためし
-#    @chart_data = [['2014-04-01', 60], ['2014-04-02', 65], ['2014-04-03', 64]]
+    @photos_pair = pariuserphotos
+
     @chart_data = @photos.where(item_name: format).order('item_date ASC').group(:item_date).average('item_value')
     @chart_data_pair = @photos_pair.where(item_name: format).order('item_date ASC').group(:item_date).average('item_value')
 
-    #binding.pry
-
-    
   end
 
 
@@ -65,5 +69,26 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password,
                                  :password_confirmation,:pairuser_id)
   end
+  
+  def userandpariuserphotos
+    @user = User.find(params[:id])
+    if User.exists?(id: @user.pairuser_id)
+      @pairuser = User.find(@user.pairuser_id)
+      temp = @pairuser.photos.ids + @user.photos.ids
+    else
+      temp = @user.photos.ids
+    end
+      return Photo.where(id: temp).order(item_date: :desc, item_time: :desc)  
+  end
+  
+  def pariuserphotos
+    @user = User.find(params[:id])
+    if User.exists?(id: @user.pairuser_id)
+      @pairuser = User.find(@user.pairuser_id)
+      temp = @pairuser.photos.ids
+    end
+      return Photo.where(id: temp).order(item_date: :desc, item_time: :desc)  
+  end
+
   
 end

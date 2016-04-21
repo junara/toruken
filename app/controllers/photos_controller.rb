@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
 
   def destroy
     @photo.destroy
-    redirect_to root_path, notice: '測定データを削除しました'
+    redirect_to user_path(session[:user_id]), notice: '測定データを削除しました'
   end
   
   def edit
@@ -40,7 +40,6 @@ class PhotosController < ApplicationController
   def update
     if @photo.update(photo_params)
       # 保存に成功した場合はトップページへリダイレクト
-      binding.pry
       redirect_to user_path(session[:user_id]) , notice: '測定データを編集しました'
     else
       # 保存に失敗した場合は編集画面へ戻す
@@ -88,7 +87,6 @@ class PhotosController < ApplicationController
         labelresult.push(elem['description'])
       end
       return labelresult
-#      result = label['description']
-#    result
+
   end
 end
