@@ -55,10 +55,10 @@ class UsersController < ApplicationController
 
     @user = User.find(params[:id])
     @photos = @user.photos.order(item_date: :desc)
-    @photos_pair = pariuserphotos
+#    @photos_pair = pariuserphotos
 
     @chart_data = @photos.where(item_name: format).order('item_date ASC').group(:item_date).average('item_value')
-    @chart_data_pair = @photos_pair.where(item_name: format).order('item_date ASC').group(:item_date).average('item_value')
+ #   @chart_data_pair = @photos_pair.where(item_name: format).order('item_date ASC').group(:item_date).average('item_value')
 
   end
 

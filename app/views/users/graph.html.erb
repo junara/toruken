@@ -1,0 +1,56 @@
+<h1>Column Chart</h1>
+<div class="dropdown">
+	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		測定値
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+		<li role="presentation"><a href="<%=  graph_path + '.体重'%>">体重</a></li>
+		<li role="presentation"><a href="<%=  graph_path + '.血圧'%>">血圧</a></li>
+	</ul>
+</div>
+
+
+<%= line_chart @chart_data %>
+<!-- シェアボタンに変換される -->
+<a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true">Tweet</a>
+<button type="button" class="btn btn-default" id="svggraph">グラフをpngダウンロード</button>
+<!-- [head]内や、[body]の終了直前などに配置 -->
+<script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+
+
+<script>
+$("#svggraph").click(outputgraph);
+  
+function outputgraph(){
+var svg = document.querySelector("svg");
+var svgData = new XMLSerializer().serializeToString(svg);
+var canvas = document.createElement("canvas");
+canvas.width = svg.width.baseVal.value;
+canvas.height = svg.height.baseVal.value;
+
+var ctx = canvas.getContext("2d");
+var image = new Image;
+image.onload = function(){
+    ctx.drawImage( image, 0, 0 );
+    var a = document.createElement("a");
+    a.href = canvas.toDataURL("image/png");
+    a.setAttribute("download", "image.png");
+    a.dispatchEvent(new CustomEvent("click"));
+}
+image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData))); 
+}
+
+
+    // $("select#item_value_select").on('change',function(event){
+    //     var location_obj = window.location ;
+    //     var href = $('#products').data('url') ;
+    //     var graphurl = href + '.' + $(":selected").attr("value") ;
+    //     location_obj.href = graphurl ;
+    // });
+
+</script>
+
