@@ -7,16 +7,15 @@ class PhotosController < ApplicationController
   def create
     @photo = current_user.photos.build(photo_params)
 
-
-    gbapi="AIzaSyDPrOSfTi0GqbeDzMHQGv-A0c2cwnuuMo4"
-    @endpoint_uri = "https://vision.googleapis.com/v1/images:annotate?key=#{gbapi}"
+    @endpoint_uri = "https://vision.googleapis.com/v1/images:annotate?key=#{ENV["GOOGLE_API_KEY"]}"
     googlevisionlabel=gvrequest(params[:photo][:content])
-    googlevisionlabeljp = EasyTranslate.translate(googlevisionlabel.join(", "), :from => :en, :to => :ja, :key => gbapi)
+    googlevisionlabeljp = EasyTranslate.translate(googlevisionlabel.join(", "), :from => :en, :to => :ja, :key => ENV["GOOGLE_API_KEY"])
     @photo[:content]= googlevisionlabeljp.gsub(/、/, ',')
 
     if googlevisionlabeljp.include?("食")
       @photo[:item_name] = "食事のきろく"
     end
+
 
     if @photo.save
       flash[:success] = "Photo created!"
