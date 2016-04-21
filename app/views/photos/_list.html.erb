@@ -11,7 +11,7 @@
 <% else %>
     <div style="text-align:left">
     <%= photo.item_date %>
-    <%= photo.item_date %>
+    <%= if photo.item_time then photo.item_time.to_s(:time) end%>
 
     </div>
     <div style="text-align:left">

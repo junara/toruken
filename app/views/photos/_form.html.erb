@@ -41,9 +41,9 @@
 
 
         <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">てすとbase64</label>
+            <label class="col-xs-4 control-label">写真をAIで自動解析してつけられた自動タグ</label>
             <div class="col-xs-8">
-                <%= f.text_field :content, class: 'form-control' %>
+                <%= f.text_area :content, class: 'form-control' , rows: "4"%>
             </div>
         </div>
 

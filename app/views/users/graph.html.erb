@@ -1,4 +1,4 @@
-<h1>Column Chart</h1>
+<h4><%= @user.name %>さんの体重変化</h4>
 <div class="dropdown">
 	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 		測定値
@@ -14,7 +14,7 @@
 <%= line_chart @chart_data %>
 <!-- シェアボタンに変換される -->
 <a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true">Tweet</a>
-<button type="button" class="btn btn-default" id="svggraph">グラフをpngダウンロード</button>
+<button type="button" class="btn btn-default" id="svggraph">グラフ画像をダウンロード</button>
 <!-- [head]内や、[body]の終了直前などに配置 -->
 <script>
 window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));

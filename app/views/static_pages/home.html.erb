@@ -11,8 +11,104 @@
   </div>
 <% else %>
   <div class="center jumbotron">
-    <h1>ペアレコーディングダイエット</h1>
+    <h1>ずぼらさんのレコーディングダイエット</h1>
 
     <%= link_to "はじめてみる", signup_path, class: "btn btn-lg btn-primary" %>
+
   </div>
+  <div class="list-group">
+      <h4 class="list-group-item-heading">このサイトは？</h4>
+        <p class="list-group-item-text">レコーディングダイエットのためのWebアプリです。1人でもできます。ただ、2人でやるともっと楽しいです。</p>
+        <br>
+      <h4 class="list-group-item-heading">レコーディングダイエット？</h4>
+        レコーディングダイエットは、記録を通して自身に向き合うことで、自然に無理なく生活習慣を改善して結果として健康的な身体を目指すダイエット方法です。
+        <br>（詳細は、こちらをみてください（<a href="http://mery.jp/33556">参考</a>））
+        <p>やることはシンプルです。</p>
+        <br>
+      <h4>レコーディングダイエットで重要なこと</h4>
+      <ul class="list-group">
+        <li class="list-group-item">口に入れたものすべてをメモする</li>
+        <li class="list-group-item">毎日体重をはかる</li>
+      </ul>
+      <h4>レコーディングダイエットのツール</h4>
+        下記の3つに分けられます。
+        <section>
+                <div>
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>種類</th>
+                      <th>特徴</th>
+                      <th>価格</th>
+                      <th>導入</th>
+                      <th>継続</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>手書きノート</th>
+                      <td>すぐに始められるのが利点。まずは、これが基本。</td>
+                      <td>無料</td>
+                      <td>○</td>
+                      <td>△</td>
+                    </tr>
+                    <tr>
+                      <th>スマホアプリ</th>
+                      <td>今は、筆記用具よりもスマホで記録する方が楽に感じる人が多いでしょう。料理の写真も撮れるアプリなら楽しく続けられそう。</td>
+                      <td>無料</td>
+                      <td>△</td>
+                      <td>○</td>
+                    </tr>
+                    <tr>
+                      <th>Ｗｅｂアプリ</th>
+                      <td>このサイトです。特別なアプリのインストールが不要で、アプリと同様にレコーディングダイエットができます。さらに、友だちとペアでやれば飽きずに続けられるかも。</td>
+                      <td>無料</td>
+                      <td>○</td>
+                      <td>○</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </section>      
+      
+      
+      
+      <h4>Webアプリでレコーディングダイエット？</h4>
+      <p>Ｗｅｂアプリなら、特別なアプリは不要ですぐに始められます。また、このサイトはスマホに最適化されているので、
+      ストレスなく記録ができます。
+      <img src="list.png" class="img-thumbnail">
+      </p>
+      作業は下記の3つ。
+      <ul>
+        <li>体重計の測定数値の写真を撮ってアップロード*</li>
+        <img src="weight.png" class="img-thumbnail">
+        <li>毎日の食事の写真を撮ってアップロード</li>
+        <img src="food.png" class="img-thumbnail">
+        <li><strong>空き時間に</strong>写真をみながらコメント。</li>
+        <img src="edit.png" class="img-thumbnail">
+      </ul>
+      ＊アップロードされた写真は、写真の撮影日以外のexifデータなどの付与情報はありません。よって、位置情報等が外部に漏れることは決してありません。
+      <br>
+      ＊個人が特定されるような写真はアップロードしないでください。
+      <br>
+      ＊公序良俗に反する写真はアップロードしないでください。
+        <h4>さらにうれしい機能</h4>
+      長期的な変化もグラフ機能で一目瞭然。重要なのは、短期間の体重の増減だけではなく、長期的な体重の変化です。
+      コメントを続ければ体重の減少を一目で分かります。<br>
+      <img src="graph.png" class="img-thumbnail">
+
+  </div>
+      さらに、このサービスはパートナーとペアでやるとより効果があります。<br>
+      使ってみてよさそうならば、知り合いを誘ってペアでレコーディングダイエットしてみてね。<br>
+      食事のコメントもパートナーにしてもらえば、より客観的に自分の生活習慣が分かります。<br>
+      また、互いが励みになるのでレコーディングダイエット、さらには、ダイエットの成功率がアップするかも。
+      <img src="pair.png" class="img-thumbnail">
+      </div>
+      
+  <div class="center jumbotron">
+    <h1>ずぼらさんのレコーディングダイエット</h1>
+
+    <%= link_to "はじめてみる", signup_path, class: "btn btn-lg btn-primary" %>
+
+
 <% end %>

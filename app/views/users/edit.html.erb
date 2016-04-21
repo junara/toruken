@@ -2,23 +2,23 @@
         <%= form_for(@user) do |f| %>
             <%= render 'shared/error_messages', object: f.object %> <!-- エラーメッセージを表示する -->
             
-            <%= f.label :name %>
+            <%= f.label "ニックネーム" %>
             <%= f.text_field :name, class: 'form-control'  %>
             
-            <%= f.label :email %>
+            <%= f.label "Eメールアドレス" %>
             <%= f.text_field :email, class: 'form-control'  %>
 
-            <%= f.label :pairuser_id %>
+            <%= f.label "ペアユーザーのID" %>
             <%= f.number_field :pairuser_id, class: 'form-control'  %>
 
 
-            <%= f.label :password %>
+            <%= f.label "パスワード" %>
             <%= f.password_field :password, class: 'form-control'  %>
             
-            <%= f.label :password_confirmation, "Confirmation" %>
+            <%= f.label "パスワードの再確認" %>
             <%= f.password_field :password_confirmation, class: 'form-control'  %>
 
             
-            <%= f.submit "Update my account", class: "btn btn-primary" %>
+            <%= f.submit "アカウント情報の更新", class: "btn btn-primary" %>
         <% end %>
     </div>
