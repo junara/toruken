@@ -1,4 +1,4 @@
-<p>写真を見ながら数値を書いてね <%= @photo.user_id %></p>
+<p>写真を見ながら数値を書いてね</p>
 
   <% if @photo.image? %>
     <div class="thumbnail">
@@ -29,6 +29,14 @@
             <label class="col-xs-4 control-label">測定日:</label>
             <div class="col-xs-8">
                   <%= f.text_field :item_date, class: 'form-control datepicker'  %>
+            </div>
+        </div>
+
+
+        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
+            <label class="col-xs-4 control-label">測定時刻:</label>
+            <div class="col-xs-8">
+                  <%= f.text_field :item_time, class: 'form-control'  %>
             </div>
         </div>
 

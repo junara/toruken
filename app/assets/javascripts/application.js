@@ -36,4 +36,11 @@ $(function(){
       next: "fa fa-arrow-right"
     }
   });
+  $('.timepicker').datetimepicker({
+    format : "HH:mm",
+    icons: {
+      time: "fa fa-clock-o"
+    }
+  });
+
 });

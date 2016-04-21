@@ -2,6 +2,7 @@
 <% if photo.user_id == params[:id].to_i %>
     <div style="text-align:right">
     <%= photo.item_date %>
+    <%= if photo.item_time then photo.item_time.to_s(:time) end%>
     </div>
     <div style="text-align:right">
     <%= User.find(photo.user_id).name %>さんの投稿
