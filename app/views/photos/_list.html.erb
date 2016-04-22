@@ -1,4 +1,5 @@
 <div class="col-xs-12" >
+    <br>
 <% if photo.user_id == params[:id].to_i %>
     <div style="text-align:right">
     <%= photo.item_date %>
@@ -26,7 +27,16 @@
       <figure class="relative">
             <% if photo.image? %>
                 <%= image_tag (photo.image.thumb.url), class: "img-responsive img-thumbnail" %>
-                <figcaption class="absolute"><h4><span class="label label-info"><%= photo.item_name %></span></h4><p><%= photo.item_value %></p></figcaption>
+                <figcaption class="absolute"><h4>
+                    <% if photo.item_name=="食事のきろく" %>
+                        <span class="label label-success">
+                    <% else %>
+                        <span class="label label-info">
+                    <% end %>
+                        <%= photo.item_name %>
+                    </span></h4>
+                    <p><%= photo.item_value %></p>
+                </figcaption>
             <% end %>
       </figure>
     </div>

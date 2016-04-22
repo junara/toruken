@@ -19,7 +19,7 @@ class PhotosController < ApplicationController
 
     if @photo.save
       flash[:success] = "Photo created!"
-      redirect_to root_url
+      #redirect_to root_url
     else
       render 'static_pages/home'
     end

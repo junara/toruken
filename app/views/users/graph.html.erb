@@ -1,3 +1,10 @@
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+    </aside>
+  </div>
 <h4><%= @user.name %>さんの体重変化</h4>
 
 <%= line_chart @chart_data ,
