@@ -1,54 +1,34 @@
 <p>写真を見ながら数値を書いてね</p>
-
-  <% if @photo.image? %>
-    <div class="thumbnail">
-      <%= image_tag @photo.image.url %>
+<div class="col-xs-12">
+    <div class="col-xs-12">
+      <% if @photo.image? %>
+          <%= image_tag @photo.image.url , class: "img-responsive img-thumbnail" %>
+      <% end %>
     </div>
-  <% end %>
-  
+    <label class="col-xs-3 control-label">日時</label>
+    <div class="col-xs-9">
+    <%= @photo.item_date %>
+                <%=
+                    if @photo.item_time then @photo.item_time.to_s(:time) end
+                %>
+    </div>
+</div>
  
-    <div class="form-horizontal" role="form">
-        <%= form_for(@photo) do |f| %>
-        
+<div class="form-horizontal" role="form">
+    <%= form_for(@photo) do |f| %>
         <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">測定項目:</label>
-            <div class="col-xs-8">
-                <%= f.text_field :item_name, class: 'form-control' %>
+            <label class="col-xs-3 control-label">きろく</label>
+            <div class="col-xs-9">
+                <label class="col-xs-6"><%= f.radio_button :item_name, "体重" %>体重のきろく</label>
+                <label class="col-xs-6"><%= f.radio_button :item_name, "食事のきろく" %>食事のきろく</label>
             </div>
         </div>
-
         <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">測定値:</label>
-            <div class="col-xs-8">
+            <label class="col-xs-3 control-label">体重</label>
+            <div class="col-xs-9">
                 <%= f.text_field :item_value, class: 'form-control', type: 'number', step: '0.01', min: '1', max: '150', placeholder: '検査値' %>
             </div>
         </div>
-
-        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">測定日:</label>
-            <div class="col-xs-8">
-                  <%= f.text_field :item_date, class: 'form-control datepicker'  %>
-            </div>
-        </div>
-
-
-        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">測定時刻:</label>
-            <div class="col-xs-8">
-                  <%= f.text_field :item_time, class: 'form-control'  %>
-            </div>
-        </div>
-
-
-        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-4 control-label">写真をAIで自動解析してつけられた自動タグ</label>
-            <div class="col-xs-8">
-                <%= f.text_area :content, class: 'form-control' , rows: "4"%>
-            </div>
-        </div>
-
-
-
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
                 <%= f.submit "送信" , class: 'btn btn-primary btn-large btn-block' %>
@@ -57,52 +37,12 @@
         <span class="btn btn-default">
             <%= link_to "削除" , @photo , method: :delete, data: {confirm: '削除してもよろしいですか？'} %>
         </span>
-
-        <% end %>
-                </div>
-    </div>
-
-
-
-
-<!--<form id="myForm" name="myForm" method="post" action="">-->
-<!--  <input type="text" name="text" id="item_value_form"/>-->
-<!--</form>-->
-
-
-<!--<button class="btn btn-primary" id="filebutton">primary</button>-->
+    <% end %>
+</div>
+<h5>（参考）Google vision による写真解析結果</h5>
+<span class="col-xs-3">この写真に写っているのは</span>
+<span class="col-xs-9">「<%= @photo.content %>」かも</span>
 
 
 
-<script>
 
-
-//ファイル読み込み
-$(function(){
-  $('#filebutton').on('click', function(evt) {
-    var form = $('#myForm').get(0);
-    // FormData オブジェクトを作成
-    var fd = new FormData( form );
-
-    fd.append('photo[user_id]', "25");
-    fd.append('photo[item_value]',"30.5")
-
-    // Ajaxで送信
-    return $.ajax({
-        type: 'PUT',
-        url: '/photos/25',
-        data: fd,
-        processData: false,
-        contentType: false,
-    }).done(function( res ) {
-      // 送信せいこう！
-      console.log( 'うまくいったね', res );
-    }).fail(function( jqXHR, textStatus, errorThrown ) {
-      // しっぱい！
-      console.log( 'ERROR', jqXHR, textStatus, errorThrown );
-    });
-
-    return false;
-  });
-});
-</script>

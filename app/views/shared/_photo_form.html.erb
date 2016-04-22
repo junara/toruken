@@ -1,42 +1,37 @@
-
-
 <input type="file" id="myfile" />
 <canvas id="canvas"></canvas>
 <button style="display: none;" class="btn btn-primary" id="myfileuploadbutton">登録する</button>
 
 
 <script>
- var fd = new FormData();
- $('#myfile').change(callbackFunc);
+    var fd = new FormData();
+    $('#myfile').change(callbackFunc);
  
-     
-
  //ボタンを押して、blob形式をフォームとして/photosへ変換しcarrierwaveを動かす
- $("#myfileuploadbutton").click(function(){
-    var resCanvas1 = document.getElementById('canvas');
-    var imgData = resCanvas1.toDataURL();
-         
-    uploadphoto(imgData)
-    location.reload(true)
-  });
+    $("#myfileuploadbutton").click(function(){
+        var resCanvas1 = document.getElementById('canvas');
+        var imgData = resCanvas1.toDataURL();
+        uploadphoto(imgData)
+        location.reload(true)
+    });
 
     //フォームを送信する。
-  function uploadphoto (imgData){
-    var imgBlob = dataURLtoBlob(imgData);
-    var base64Data = imgData.split(',')[1];
-  	  fd.append('photo[image]',imgBlob);
-      fd.append('photo[item_name]','体重'); //初期値として 
-      fd.append('photo[content]', base64Data);
+    function uploadphoto (imgData){
+        var imgBlob = dataURLtoBlob(imgData);
+        var base64Data = imgData.split(',')[1];
+        fd.append('photo[image]',imgBlob);
+        fd.append('photo[item_name]','体重'); //初期値として 
+        fd.append('photo[content]', base64Data);
 
-	  $.ajax({
-	        type: 'POST',
-	        url: '/photos',
-	        data: fd,
-	        processData: false,
-	        contentType: false,
-	        async: false
-			}); 
-  }
+        $.ajax({
+            type: 'POST',
+            url: '/photos',
+            data: fd,
+            processData: false,
+            contentType: false,
+            async: false
+        }); 
+    }
   
     function dataURLtoBlob(dataURL) {
         // Decode the dataURL
@@ -51,88 +46,82 @@
     }
     
   //https://www.snip2code.com/Embed/144296/File-API-Canvas----------------?startLine=0
-  function callbackFunc(evt){
-    var file = evt.target.files[0];
-    var img = new Image();
-    var reader = new FileReader();
-    var orientation;
-
-    reader.onload = function(e) {
-        var data = e.target.result;
-        var filedate = file.lastModifiedDate;
-        var utcjst = 9 ; //hour
-        var zisa = utcjst * 60 * 60 * 1000; // m秒
-//        var filedate = new Date(filedate_utc.getTime() - zisa);
-        // 写真のlastmodifieddateを取得してフォームに入力
-        debugger;
-        
-        fd.append('photo[item_date(1i)]',filedate.getFullYear());
-  	    fd.append('photo[item_date(2i)]',filedate.getMonth() + 1);
-  	    fd.append('photo[item_date(3i)]',filedate.getDate());
-  	    
-  	     fd.append('photo[item_time(1i)]',filedate.getFullYear());
-  	    fd.append('photo[item_time(2i)]',filedate.getMonth() + 1);
-  	    fd.append('photo[item_time(3i)]',filedate.getDate());
-  	     fd.append('photo[item_time(4i)]',filedate.getHours());
-  	     fd.append('photo[item_time(5i)]',filedate.getMinutes());
-  	     
-        // JPEGの場合には、EXIFからOrientation（回転）情報を取得
-        if (data.split(',')[0].match('jpeg')) {
-            orientation = getOrientation(data);
-            
-        }
-        // JPEG以外や、JPEGでもEXIFが無い場合などには、標準の値に設定
-        orientation = orientation || 1;
-    
-        //canvas描画処理
-        var mpImg = new MegaPixImage(file);
-        var resCanvas1 = document.getElementById('canvas');
-        mpImg.render(resCanvas1, { maxWidth: 300, maxHeight: 400, orientation: orientation });
- 
-        $("canvas").show("fast",$("#myfileuploadbutton").show("fast"));
-
-
-    }
-    reader.readAsDataURL(file);
-  }
-  
-  function getOrientation(imgDataURL){
-    var byteString = atob(imgDataURL.split(',')[1]);
-    var orientaion = byteStringToOrientation(byteString);
-    return orientaion;
- 
-    function byteStringToOrientation(img){
-        var head = 0;
+    function callbackFunc(evt){
+        var file = evt.target.files[0];
+        var img = new Image();
+        var reader = new FileReader();
         var orientation;
-        while (1){
-            if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 218) {break;}
-            if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 216) {
-                head += 2;
+        
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var filedate = file.lastModifiedDate;
+            var utcjst = 9 ; //hour
+            var zisa = utcjst * 60 * 60 * 1000; // m秒
+            //        var filedate = new Date(filedate_utc.getTime() - zisa);
+            // 写真のlastmodifieddateを取得してフォームに入力
+            
+            fd.append('photo[item_date(1i)]',filedate.getFullYear());
+            fd.append('photo[item_date(2i)]',filedate.getMonth() + 1);
+            fd.append('photo[item_date(3i)]',filedate.getDate());
+            
+            fd.append('photo[item_time(1i)]',filedate.getFullYear());
+            fd.append('photo[item_time(2i)]',filedate.getMonth() + 1);
+            fd.append('photo[item_time(3i)]',filedate.getDate());
+            fd.append('photo[item_time(4i)]',filedate.getHours());
+            fd.append('photo[item_time(5i)]',filedate.getMinutes());
+            
+            // JPEGの場合には、EXIFからOrientation（回転）情報を取得
+            if (data.split(',')[0].match('jpeg')) {
+                orientation = getOrientation(data);
             }
-            else {
-                var length = img.charCodeAt(head + 2) * 256 + img.charCodeAt(head + 3);
-                var endPoint = head + length + 2;
-                if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 225) {
-                    var segment = img.slice(head, endPoint);
-                    var bigEndian = segment.charCodeAt(10) == 77;
-                    if (bigEndian) {
-                        var count = segment.charCodeAt(18) * 256 + segment.charCodeAt(19);
-                    } else {
-                        var count = segment.charCodeAt(18) + segment.charCodeAt(19) * 256;
-                    }
-                    for (i=0;i<count;i++){
-                        var field = segment.slice(20 + 12 * i, 32 + 12 * i);
-                        if ((bigEndian && field.charCodeAt(1) == 18) || (!bigEndian && field.charCodeAt(0) == 18)) {
-                            orientation = bigEndian ? field.charCodeAt(9) : field.charCodeAt(8);
-                        }
-                    }
-                    break;
-                }
-                head = endPoint;
-            }
-            if (head > img.length){break;}
+        // JPEG以外や、JPEGでもEXIFが無い場合などには、標準の値に設定
+            orientation = orientation || 1;
+            //canvas描画処理
+            var mpImg = new MegaPixImage(file);
+            var resCanvas1 = document.getElementById('canvas');
+            mpImg.render(resCanvas1, { maxWidth: 300, maxHeight: 400, orientation: orientation });
+            $("canvas").show("fast",$("#myfileuploadbutton").show("fast"));
         }
-        return orientation;
+        reader.readAsDataURL(file);
     }
-}
+  
+    function getOrientation(imgDataURL){
+        var byteString = atob(imgDataURL.split(',')[1]);
+        var orientaion = byteStringToOrientation(byteString);
+        return orientaion;
+     
+        function byteStringToOrientation(img){
+            var head = 0;
+            var orientation;
+            while (1){
+                if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 218) {break;}
+                if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 216) {
+                    head += 2;
+                }
+                else {
+                    var length = img.charCodeAt(head + 2) * 256 + img.charCodeAt(head + 3);
+                    var endPoint = head + length + 2;
+                    if (img.charCodeAt(head) == 255 & img.charCodeAt(head + 1) == 225) {
+                        var segment = img.slice(head, endPoint);
+                        var bigEndian = segment.charCodeAt(10) == 77;
+                        if (bigEndian) {
+                            var count = segment.charCodeAt(18) * 256 + segment.charCodeAt(19);
+                        } else {
+                            var count = segment.charCodeAt(18) + segment.charCodeAt(19) * 256;
+                        }
+                        for (i=0;i<count;i++){
+                            var field = segment.slice(20 + 12 * i, 32 + 12 * i);
+                            if ((bigEndian && field.charCodeAt(1) == 18) || (!bigEndian && field.charCodeAt(0) == 18)) {
+                                orientation = bigEndian ? field.charCodeAt(9) : field.charCodeAt(8);
+                            }
+                        }
+                        break;
+                    }
+                    head = endPoint;
+                }
+                if (head > img.length){break;}
+            }
+            return orientation;
+        }
+    }
 </script>

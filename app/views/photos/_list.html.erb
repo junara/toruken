@@ -26,13 +26,12 @@
       <figure class="relative">
             <% if photo.image? %>
                 <%= image_tag (photo.image.thumb.url), class: "img-responsive img-thumbnail" %>
-                
-                <figcaption class="absolute"><span class="label label-info"><%= photo.item_name %></span><p><%= photo.item_value %></p></figcaption>
+                <figcaption class="absolute"><h4><span class="label label-info"><%= photo.item_name %></span></h4><p><%= photo.item_value %></p></figcaption>
             <% end %>
       </figure>
     </div>
     <div class="action clearfix">
-        <span class="btn btn-default">
+        <span class="btn btn-default btn-lg">
             <%= link_to "編集" , edit_photo_path(photo) %>
         </span>
     </div>
