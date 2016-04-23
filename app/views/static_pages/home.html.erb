@@ -10,7 +10,8 @@
     </aside>
   </div>
 <% else %>
-  <div class="center jumbotron">
+  <div class="center jumbotron" background = "bg.jpg">
+    <style type="text/css">.jumbotron { background:url(bg.png) center no-repeat; background-size: cover;}</style>
     <h1>ずぼらさんのレコーディングダイエット</h1>
 
     <%= link_to "はじめてみる", signup_path, class: "btn btn-lg btn-primary" %>
@@ -23,15 +24,14 @@
       <h4 class="list-group-item-heading">レコーディングダイエット？</h4>
         レコーディングダイエットは、記録を通して自身に向き合うことで、自然に無理なく生活習慣を改善して結果として健康的な身体を目指すダイエット方法です。
         <br>（詳細は、こちらをみてください（<a href="http://mery.jp/33556">参考</a>））
-        <p>やることはシンプルです。</p>
         <br>
-      <h4>レコーディングダイエットで重要なこと</h4>
+      <h4>レコーディングダイエットで重要な2点</h4>
       <ul class="list-group">
         <li class="list-group-item">口に入れたものすべてをメモする</li>
         <li class="list-group-item">毎日体重をはかる</li>
       </ul>
       <h4>レコーディングダイエットのツール</h4>
-        下記の3つに分けられます。
+        大きく下記の3つに分けられます。
         <section>
                 <div>
                 <table class="table table-striped table-bordered table-hover">
@@ -70,21 +70,19 @@
                 </table>
             </div>
         </section>      
-      
+        今ならスマホのアプリが一般的かもしれません。でも、とりあえず始めるなら特定のアプリのインストールが不要なWEBアプリ（このサイト（ずぼらさんのレコーディングダイエット））からやってみては？
       
       
       <h4>Webアプリでレコーディングダイエット？</h4>
-      <p>Ｗｅｂアプリなら、特別なアプリは不要ですぐに始められます。また、このサイトはスマホに最適化されているので、
-      ストレスなく記録ができます。
+      <p>Ｗｅｂアプリ（ずぼらさんのレコーディングダイエット）のイメージは下記のとおりです。</p>
       <img src="list.png" class="img-thumbnail">
-      </p>
-      作業は下記の3つ。
+      <p><strong>ずぼらさんのレコーディングダイエット</strong>でのレコーディングダイエットでの作業は下記3つです。</p>
       <ul>
         <li>体重計の測定数値の写真を撮ってアップロード*</li>
         <img src="weight.png" class="img-thumbnail">
         <li>毎日の食事の写真を撮ってアップロード</li>
         <img src="food.png" class="img-thumbnail">
-        <li><strong>空き時間に</strong>写真をみながらコメント。</li>
+        <li><strong>空き時間に</strong>写真をみながら体重を入力する。</li>
         <img src="edit.png" class="img-thumbnail">
       </ul>
       ＊アップロードされた写真は、写真の撮影日以外のexifデータなどの付与情報はありません。よって、位置情報等が外部に漏れることは決してありません。
@@ -98,7 +96,7 @@
       <ul>
       <li>長期的な変化もグラフ機能で一目瞭然。重要なのは、短期間の体重の増減だけではなく、長期的な体重の変化です。
       コメントを続ければ体重の減少を一目で分かります。</li>
-      <img src="graph.png" class="img-thumbnail">
+      <img src="graph.png" class="img-thumbnail"  >
 
   </div>
  
@@ -114,9 +112,13 @@
       
       </ul>
       
-      <h4>とりあえず、写真を撮っておきましょう<br>思いついたときに、写真をみながらスキマ時間でささっと入力するだけでレコーディングダイエット
-      ができる。<br>
-      ずぼらさんでもきっと続けられる！</h4>
+      <ul>
+      <li>とりあえず、写真を撮っておきましょう</li>
+      <li>スキマ時間で、写真アップロードしましょう</li>
+      <li>毎日じゃなくてもまとめてでもOK</li>
+      <li>写真をみながら入力すればいいので確実に体重を記録できます。</li>
+      <li>まずは写真をとるだけなのでずぼらさんでもきっと続けられる！</li>
+      </ul>
   <div class="center jumbotron">
     <h1>ずぼらさんのレコーディングダイエット</h1>
 
@@ -124,3 +126,6 @@
 
 </div>
 <% end %>
+      <footer>
+        <p>&copy; 2016 Jungo Araki.</p>
+      </footer>

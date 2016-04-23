@@ -41,7 +41,6 @@
 
 
             <ul class="dropdown-menu">
-              <li><a href="#">使い方</a></li>
               <li><%= link_to "設定" , edit_user_path(session[:user_id])  %></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
@@ -50,7 +49,7 @@
           </li>
           </ul>
         <% else %>
-          <%= link_to "ペアダイエット", root_path, id: "logo" %>
+          <%= link_to "ずぼレコ", root_path, id: "logo" %>
           <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "ログインする", login_path %></li>
           </ul>

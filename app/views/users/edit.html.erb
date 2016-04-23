@@ -10,10 +10,11 @@
 
             <%= f.label "ペアユーザーのID" %>
             <%= f.number_field :pairuser_id, class: 'form-control'  %>
-
+            <span id="helpBlock" class="help-block">ペアユーザーのidを利用してペアでのレコーディングダイエットは現在はテスト運用中です。空欄で結構です。</span>
 
             <%= f.label "パスワード" %>
             <%= f.password_field :password, class: 'form-control'  %>
+            <span id="helpBlock" class="help-block">パスワードの変更を希望する場合は入力してください。</span>
             
             <%= f.label "パスワードの再確認" %>
             <%= f.password_field :password_confirmation, class: 'form-control'  %>

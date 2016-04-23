@@ -14,3 +14,5 @@
  *= require_self
  *= require bootstrap-datetimepicker
  */
+
+.jumbotron { background:url(bg.jpg) center no-repeat; background-size: cover;}
