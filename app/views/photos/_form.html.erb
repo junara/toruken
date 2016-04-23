@@ -19,13 +19,13 @@
         <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
             <label class="col-xs-3 control-label">きろく</label>
             <div class="col-xs-9 btn-group-lg dropup">
-                <%= f.select :item_name , [["体重のきろく", "体重"], ["食事のきろく", "食事のきろく"] ], {},  class: "btn btn-default dropdown-toggle form-control" %>
+                <%= f.select :item_name ,[["体重のきろく", "体重"] ,["朝食のきろく", "朝食"] ,["昼食のきろく", "昼食"] ,["夕食のきろく", "夕食"] ,["食事のきろく", "食事のきろく"] ], {},  class: "btn btn-default dropdown-toggle form-control" %>
             </div>
         </div>
         <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
             <label class="col-xs-3 control-label">体重</label>
             <div class="col-xs-9">
-                <%= f.text_field :item_value, class: 'form-control input-lg', type: 'number', step: '0.01', min: '1', max: '150',  placeholder: '検査値' %>
+                <%= f.text_field :item_value, class: 'form-control input-lg', type: 'number', step: '0.01', min: '1', max: '150',  placeholder: '体重' %>
             </div>
         </div>
         <div class="form-group">

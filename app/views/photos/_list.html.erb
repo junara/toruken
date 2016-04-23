@@ -28,7 +28,7 @@
             <% if photo.image? %>
                 <%= image_tag (photo.image.thumb.url), class: "img-responsive img-thumbnail" %>
                 <figcaption class="absolute"><h4>
-                    <% if photo.item_name=="食事のきろく" %>
+                    <% if photo.item_name.include?("食") %>
                         <span class="label label-success">
                     <% else %>
                         <span class="label label-info">
@@ -42,7 +42,11 @@
     </div>
     <div class="action clearfix">
         <span class="btn btn-default btn-lg">
-            <%= link_to "編集" , edit_photo_path(photo) %>
+            <% if photo.user_id == params[:id].to_i %>
+                <%= link_to "自分のデータを編集" , edit_photo_path(photo) %>
+            <% else %>
+                <%= link_to "パートナーのデータを編集" , edit_photo_path(photo) %>
+            <% end %>
         </span>
     </div>
 </div>

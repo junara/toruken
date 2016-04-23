@@ -11,15 +11,24 @@ class PhotosController < ApplicationController
     googlevisionlabel=gvrequest(params[:photo][:content])
     googlevisionlabeljp = EasyTranslate.translate(googlevisionlabel.join(", "), :from => :en, :to => :ja, :key => ENV["GOOGLE_API_KEY"])
     @photo[:content]= googlevisionlabeljp.gsub(/、/, ',')
-
+    t = Time.mktime(params[:photo]["item_time(1i)"],params[:photo]["item_time(2i)"],params[:photo]["item_time(3i)"],params[:photo]["item_time(4i)"],params[:photo]["item_time(5i)"],params[:photo]["item_time(6i)"])
+    thour = t.strftime("%H").to_i
     if googlevisionlabeljp.include?("食")
-      @photo[:item_name] = "食事のきろく"
+      if thour >= 4 && thour <= 10
+        @photo[:item_name] = "朝食"
+      elsif thour >= 11 && thour <= 14
+        @photo[:item_name] = "昼食"
+      elsif thour >= 16 && thour <= 24
+        @photo[:item_name] = "夕食"
+      else
+        @photo[:item_name] = "食事のきろく"
+      end
     end
 
 
     if @photo.save
       flash[:success] = "Photo created!"
-      #redirect_to root_url
+      redirect_to root_url
     else
       render 'static_pages/home'
     end
