@@ -16,18 +16,27 @@
  
 <div class="form-horizontal" role="form">
     <%= form_for(@photo) do |f| %>
-        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
+        <div class="form-group form-group-lg"><!-- タブレットの時は1段組、それ以外は2段組 -->
             <label class="col-xs-3 control-label">きろく</label>
-            <div class="col-xs-9 btn-group-lg dropup">
-                <%= f.select :item_name ,[["体重のきろく", "体重"] ,["朝食のきろく", "朝食"] ,["昼食のきろく", "昼食"] ,["夕食のきろく", "夕食"] ,["食事のきろく", "食事のきろく"] ], {},  class: "btn btn-default dropdown-toggle form-control" %>
+            <div class="col-xs-9 btn-group-lg">
+                <%= f.select :item_name ,[["体重のきろく", "体重"] ,["朝食のきろく", "朝食"] ,["昼食のきろく", "昼食"] ,["夕食のきろく", "夕食"] ,["食事のきろく", "食事のきろく"] ], {},  class: "btn btn-default dropdown-toggle form-control input-lg" %>
             </div>
         </div>
-        <div class="form-group"><!-- タブレットの時は1段組、それ以外は2段組 -->
-            <label class="col-xs-3 control-label">体重</label>
-            <div class="col-xs-9">
-                <%= f.text_field :item_value, class: 'form-control input-lg', type: 'number', step: '0.01', min: '1', max: '150',  placeholder: '体重' %>
+        <% if @photo.item_name.include?("食") %>
+            <div class="form-group form-group-lg"><!-- タブレットの時は1段組、それ以外は2段組 -->
+                <label class="col-xs-3 control-label">食事</label>
+                <div class="col-xs-9">
+                    <%= f.text_area :item_tag, class: 'form-control input-lg',  placeholder: '食事のコメントを残しましょう' %>
+                </div>
             </div>
-        </div>
+        <% else %>
+            <div class="form-group form-group-lg"><!-- タブレットの時は1段組、それ以外は2段組 -->
+                <label class="col-xs-3 control-label">体重</label>
+                <div class="col-xs-9">
+                    <%= f.text_field :item_value, class: 'form-control input-lg', type: 'number', step: '0.01', min: '1', max: '150',  placeholder: '体重' %>
+                </div>
+            </div>
+        <% end %>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
                 <%= f.submit "送信" , class: 'btn btn-primary btn-large btn-block' %>

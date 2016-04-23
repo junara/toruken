@@ -35,7 +35,11 @@
                     <% end %>
                         <%= photo.item_name %>
                     </span></h4>
-                    <p><%= photo.item_value %></p>
+                    <% if photo.item_name.include?("食") %>
+                        <p><%= photo.item_tag %></p>
+                    <% else %>
+                        <p><%= photo.item_value %></p>
+                    <% end %>
                 </figcaption>
             <% end %>
       </figure>
