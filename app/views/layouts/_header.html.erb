@@ -49,8 +49,9 @@
           </li>
           </ul>
         <% else %>
-          <%= link_to "ずぼレコ", root_path, id: "logo" %>
           <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "ずぼレコ", root_path, id: "logo" %></li>
+          
           <li><%= link_to "ログインする", login_path %></li>
           </ul>
         <% end %>
