@@ -1,25 +1,25 @@
-    <div class="col-md-6 col-md-offset-3">
-        <%= form_for(@user) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %> <!-- エラーメッセージを表示する -->
-            
-            <%= f.label "ニックネーム" %>
-            <%= f.text_field :name, class: 'form-control'  %>
-            
-            <%= f.label "Eメールアドレス" %>
-            <%= f.text_field :email, class: 'form-control'  %>
+<div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <!-- エラーメッセージを表示する -->
 
-            <%= f.label "ペアユーザーのID" %>
-            <%= f.number_field :pairuser_id, class: 'form-control'  %>
-            <span id="helpBlock" class="help-block">ペアユーザーのidを利用してペアでのレコーディングダイエットは現在はテスト運用中です。空欄で結構です。</span>
+    <%= f.label "ニックネーム" %>
+    <%= f.text_field :name, class: 'form-control'  %>
 
-            <%= f.label "パスワード" %>
-            <%= f.password_field :password, class: 'form-control'  %>
-            <span id="helpBlock" class="help-block">パスワードの変更を希望する場合は入力してください。</span>
-            
-            <%= f.label "パスワードの再確認" %>
-            <%= f.password_field :password_confirmation, class: 'form-control'  %>
+    <%= f.label "Eメールアドレス" %>
+    <%= f.text_field :email, class: 'form-control'  %>
 
-            
-            <%= f.submit "アカウント情報の更新", class: "btn btn-primary" %>
-        <% end %>
-    </div>
+    <%= f.label "ペアユーザーのID" %>
+    <%= f.number_field :pairuser_id, class: 'form-control'  %>
+    <span id="helpBlock" class="help-block">ペアユーザーのidを利用してペアでのレコーディングダイエットは現在はテスト運用中です。空欄で結構です。</span>
+
+    <%= f.label "パスワード" %>
+    <%= f.password_field :password, class: 'form-control'  %>
+    <span id="helpBlock" class="help-block">パスワードの変更を希望する場合は入力してください。</span>
+
+    <%= f.label "パスワードの再確認" %>
+    <%= f.password_field :password_confirmation, class: 'form-control'  %>
+
+    <%= f.submit "アカウント情報の更新", class: "btn btn-primary" %>
+    <% end %>
+</div>

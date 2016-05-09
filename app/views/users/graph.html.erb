@@ -1,20 +1,20 @@
-  <div class="row">
+<div class="row">
     <aside class="col-md-4">
-      <section class="user_info">
-        <%= render 'shared/user_info' %>
-      </section>
+        <section class="user_info">
+            <%= render 'shared/user_info' %>
+        </section>
     </aside>
-  </div>
+</div>
 <h4><%= @user.name %>さんの体重変化</h4>
 
 <%= line_chart @chart_data ,
     colors: ["pink", "#999"] ,
     xtitle: "日付" ,
-    ytitle: "体重 [ kg ]", 
+    ytitle: "体重 [ kg ]",
     library: {
         backgroundColor: "#eee" ,
         title: "レコーディングダイエット",
-        fontSize: "16" 
+        fontSize: "16"
     }
 %>
 
@@ -26,32 +26,44 @@
 <h4>ダウンロードしたグラフ画像ををtwitterやinstagramに添付してシェアしよう！</h4>
 
 <div class="btn-group btn-group-lg">
-<a href="https://twitter.com/intent/tweet?button_hashtag=%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88" class="twitter-hashtag-button" data-lang="ja" data-size="large">Tweet #%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88</a>
+    <a href="https://twitter.com/intent/tweet?button_hashtag=%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88" class="twitter-hashtag-button" data-lang="ja" data-size="large">Tweet #%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88</a>
 </div>
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-
 <script>
-$("#svggraph").click(outputgraph);
-
-function outputgraph(){
-    var svg = document.querySelector("svg");
-    var svgData = new XMLSerializer().serializeToString(svg);
-    var canvas = document.createElement("canvas");
-    canvas.width = svg.width.baseVal.value;
-    canvas.height = svg.height.baseVal.value;
-    
-    var ctx = canvas.getContext("2d");
-    var image = new Image;
-    image.onload = function(){
-        ctx.drawImage( image, 0, 0 );
-        var a = document.createElement("a");
-        a.href = canvas.toDataURL("image/png");
-        a.setAttribute("download", "imfsfsage.png");
-        a.dispatchEvent(new CustomEvent("click"));
-    }
-    image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData))); 
-}
+    !function (d, s, id) {
+        var js,
+            fjs = d.getElementsByTagName(s)[0],
+            p = /^http:/.test(d.location)
+                ? 'http'
+                : 'https';
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'twitter-wjs');
 </script>
 
+<script>
+    $("#svggraph").click(outputgraph);
+
+    function outputgraph() {
+        var svg = document.querySelector("svg");
+        var svgData = new XMLSerializer().serializeToString(svg);
+        var canvas = document.createElement("canvas");
+        canvas.width = svg.width.baseVal.value;
+        canvas.height = svg.height.baseVal.value;
+
+        var ctx = canvas.getContext("2d");
+        var image = new Image;
+        image.onload = function () {
+            ctx.drawImage(image, 0, 0);
+            var a = document.createElement("a");
+            a.href = canvas.toDataURL("image/png");
+            a.setAttribute("download", "imfsfsage.png");
+            a.dispatchEvent(new CustomEvent("click"));
+        }
+        image.src = "data:image/svg+xml;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(svgData)));
+    }
+</script>
