@@ -1,4 +1,11 @@
+#haedermenulogo
+        {
+                text-align: center;
+                font-size   : 100%;
+        }
+
 header {
+
   height: 60px;
   .navbar {
     width: 100%;
@@ -55,6 +62,8 @@ header {
       }
     }
   }
+  
+
 }
 
 @media (max-width: 768px) {

@@ -39,6 +39,10 @@ gem 'bootstrap3-datetimepicker-rails'
 
  gem "chartkick"
 gem 'pry-byebug', group: :development
+gem 'pry-clipboard',  group: :development
+gem 'pry-rails',  group: :development
+gem 'httpclient'
+gem 'easy_translate'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

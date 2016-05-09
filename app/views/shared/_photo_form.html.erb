@@ -1,28 +1,4 @@
-<!--<%= form_for(@photo) do |f| %>-->
-  <%= render 'shared/error_messages', object: f.object %>
-  
-<!-- <div class="field">-->
-<!--    <% if @photo.image? %>-->
-<!--      <div class="thumbnail">-->
-<!--        <%= image_tag @photo.image.url %>-->
-<!--      </div>-->
-<!--    <% end %><br>-->
-<!--    <%= f.label :image %><br>-->
-<!--    <%= f.file_field :image %>-->
-<!--    <%= f.hidden_field :image_cache %>-->
-<!--  </div>-->
-<!--  <div class="field">-->
-    <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
-<!--    <% if @photo.persisted? && @photo.image? %>-->
-<!--      <label>-->
-<!--        <%= f.check_box :remove_image %>-->
-<!--        画像を削除-->
-<!--      </label>-->
-<!--    <% end %>-->
-<!--  </div>-->
 
-<!--  <%= f.submit "Post", class: "btn btn-primary" %>-->
-<!--<% end %>-->
 
 <input type="file" id="myfile" />
 <canvas id="canvas"></canvas>
@@ -39,17 +15,18 @@
  $("#myfileuploadbutton").click(function(){
     var resCanvas1 = document.getElementById('canvas');
     var imgData = resCanvas1.toDataURL();
-    var imgBlob = dataURLtoBlob(imgData);
          
-    uploadphoto(imgBlob)
+    uploadphoto(imgData)
     location.reload(true)
   });
 
     //フォームを送信する。
-  function uploadphoto (imgBlob){
-
+  function uploadphoto (imgData){
+    var imgBlob = dataURLtoBlob(imgData);
+    var base64Data = imgData.split(',')[1];
   	  fd.append('photo[image]',imgBlob);
       fd.append('photo[item_name]','体重'); //初期値として 
+      fd.append('photo[content]', base64Data);
 
 	  $.ajax({
 	        type: 'POST',
@@ -71,7 +48,8 @@
     		}
         // Return our Blob object
     	return new Blob([new Uint8Array(array)], {type: 'image/png'});
-    } 
+    }
+    
   //https://www.snip2code.com/Embed/144296/File-API-Canvas----------------?startLine=0
   function callbackFunc(evt){
     var file = evt.target.files[0];
@@ -82,10 +60,22 @@
     reader.onload = function(e) {
         var data = e.target.result;
         var filedate = file.lastModifiedDate;
+        var utcjst = 9 ; //hour
+        var zisa = utcjst * 60 * 60 * 1000; // m秒
+//        var filedate = new Date(filedate_utc.getTime() - zisa);
         // 写真のlastmodifieddateを取得してフォームに入力
+        debugger;
+        
         fd.append('photo[item_date(1i)]',filedate.getFullYear());
   	    fd.append('photo[item_date(2i)]',filedate.getMonth() + 1);
   	    fd.append('photo[item_date(3i)]',filedate.getDate());
+  	    
+  	     fd.append('photo[item_time(1i)]',filedate.getFullYear());
+  	    fd.append('photo[item_time(2i)]',filedate.getMonth() + 1);
+  	    fd.append('photo[item_time(3i)]',filedate.getDate());
+  	     fd.append('photo[item_time(4i)]',filedate.getHours());
+  	     fd.append('photo[item_time(5i)]',filedate.getMinutes());
+  	     
         // JPEGの場合には、EXIFからOrientation（回転）情報を取得
         if (data.split(',')[0].match('jpeg')) {
             orientation = getOrientation(data);

@@ -7,5 +7,11 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   
-  has_many :photos  
+  has_many :photos
+  has_one :pairuserofuser, class_name: "User",
+                              foreign_key: "pairuser_id"
+  belongs_to :pairuser , class_name: "User" , foreign_key: "pairuser_id"
+
+  #has_many :pairphotos, through: :pairuserofuser, source: 'user'  うまく動かない
+
 end

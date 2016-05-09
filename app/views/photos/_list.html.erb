@@ -1,20 +1,40 @@
-<div class="col-xs-6" >
+<div class="col-xs-12" >
+<% if photo.user_id == params[:id].to_i %>
+    <div style="text-align:right">
+    <%= photo.item_date %>
+    <%= if photo.item_time then photo.item_time.to_s(:time) end%>
+    </div>
+    <div style="text-align:right">
+    <%= User.find(photo.user_id).name %>さんの投稿
+    </div>
+    <div class="bubble bubble-right">
+<% else %>
+    <div style="text-align:left">
+    <%= photo.item_date %>
+    </div>
+    <div style="text-align:left">
+    <%= User.find(photo.user_id).name %>さんの投稿
+    </div>
+    <div class="bubble bubble-left">
+
+<% end %>
+
 <div class="item-box">
     <div class="image">
-      <div class="img-wrap">
+      <figure class="relative">
             <% if photo.image? %>
-                <%= image_tag (photo.image.thumb.url), class: "img-responsive" %>
+                <%= image_tag (photo.image.thumb.url), class: "img-responsive img-thumbnail" %>
+                
+                <figcaption class="absolute"><span class="label label-info"><%= photo.item_name %></span><p><%= photo.item_value %></p></figcaption>
             <% end %>
-        </div>
+      </figure>
     </div>
     <div class="action clearfix">
-        <span class="label label-info"><%= photo.item_name %></span>
-            <%= photo.item_value %>
-            <%= photo.item_date %>
         <span class="btn btn-default">
             <%= link_to "編集" , edit_photo_path(photo) %>
         </span>
     </div>
 </div>
 
+</div>
 </div>
