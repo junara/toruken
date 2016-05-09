@@ -19,4 +19,4 @@
 # Ignore all images.
 /public/uploads/*
 /RackMultipart*
-
+/vendor
